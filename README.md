@@ -1,6 +1,6 @@
 # Description
 
-This repository is meant to serve as a general template for how to set up new repositories in the JogetOSS organization. 
+This PDF File Add Image Tool is used to add uploaded image on every page of uploaded PDF File.
 
 # Getting Help
 
