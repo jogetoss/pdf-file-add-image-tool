@@ -1,6 +1,6 @@
 # Description
 
-This PDF File Add Image Tool is used to add uploaded image on every page of uploaded PDF File.
+This PDF File Add Image Tool plugin is used to add uploaded image on every page of uploaded PDF File.
 
 # Getting Help
 
