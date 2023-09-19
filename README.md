@@ -2,6 +2,9 @@
 
 This PDF File Add Image Tool plugin is used to add uploaded image on every page of uploaded PDF File.
 
+To setup and configure this plugin, please see the [documentation](https://dev.joget.org/community/display/marketplace/PDF+File+Add+Image+Tool+Plugin).
+
+
 # Getting Help
 
 JogetOSS is a community-led team for open source software related to the [Joget](https://www.joget.org) no-code/low-code application platform.
