@@ -28,8 +28,11 @@ import com.lowagie.text.Image;
 import com.lowagie.text.pdf.PdfContentByte;
 import com.lowagie.text.pdf.PdfReader;
 import com.lowagie.text.pdf.PdfStamper;
+import java.util.ArrayList;
+import java.util.List;
 
-public class PDFFileAddImageTool extends DefaultApplicationPlugin{
+public class PDFFileAddImageTool extends DefaultApplicationPlugin {
+
     private final static String MESSAGE_PATH = "messages/PDFFileAddImageTool";
 
     @Override
@@ -39,26 +42,26 @@ public class PDFFileAddImageTool extends DefaultApplicationPlugin{
 
     @Override
     public String getVersion() {
-        return "7.0.0";
+        return "7.0.1";
     }
-    
+
     @Override
     public String getClassName() {
         return getClass().getName();
     }
-    
+
     @Override
     public String getLabel() {
         //support i18n
         return AppPluginUtil.getMessage("org.joget.marketplace.PDFFileAddImageTool.pluginLabel", getClassName(), MESSAGE_PATH);
     }
-    
+
     @Override
     public String getDescription() {
         //support i18n
         return AppPluginUtil.getMessage("org.joget.marketplace.PDFFileAddImageTool.pluginDesc", getClassName(), MESSAGE_PATH);
     }
- 
+
     @Override
     public String getPropertyOptions() {
         return AppUtil.readPluginResource(getClassName(), "/properties/PDFFileAddImageTool.json", null, true, MESSAGE_PATH);
@@ -70,26 +73,26 @@ public class PDFFileAddImageTool extends DefaultApplicationPlugin{
         AppService appService = (AppService) ac.getBean("appService");
         AppDefinition appDef = AppUtil.getCurrentAppDefinition();
 
-        String formDefId_SourcePDF = (String) map.get("formDefId_SourcePDF");
-        String formDefId_SourceIMG = (String) map.get("formDefId_SourceIMG");
-        String formDefId_OutputPDF = (String) map.get("formDefId_OutputPDF");
-        String fieldId_SourcePDF = (String) map.get("fieldId_SourcePDF");
-        String fieldId_SourceIMG = (String) map.get("fieldId_SourceIMG");
-        String fieldId_OutputPDF = (String) map.get("fieldId_OutputPDF");
-        String recordId_SourcePDF = (String) map.get("recordId_SourcePDF");
-        String recordId_SourceIMG = (String) map.get("recordId_SourceIMG");
-        String recordId_OutputPDF = (String) map.get("recordId_OutputPDF");
+        String formDefIdSourcePdf = (String) map.get("formDefId_SourcePDF");
+        String formDefIdSourceImg = (String) map.get("formDefId_SourceIMG");
+        String formDefIdOutputPdf = (String) map.get("formDefId_OutputPDF");
+        String fieldIdSourcePdf = (String) map.get("fieldId_SourcePDF");
+        String fieldIdSourceImg = (String) map.get("fieldId_SourceIMG");
+        String fieldIdOutputPdf = (String) map.get("fieldId_OutputPDF");
+        String recordIdSourcePdf = (String) map.get("recordId_SourcePDF");
+        String recordIdSourceImg = (String) map.get("recordId_SourceIMG");
+        String recordIdOutputPdf = (String) map.get("recordId_OutputPDF");
 
         WorkflowAssignment wfAssignment = (WorkflowAssignment) map.get("workflowAssignment");
         if (wfAssignment != null) {
-            if(recordId_SourcePDF.equals("")) {
-                recordId_SourcePDF = appService.getOriginProcessId(wfAssignment.getProcessId());
-            } 
-            if(recordId_SourceIMG.equals("")) {
-                recordId_SourceIMG = appService.getOriginProcessId(wfAssignment.getProcessId());
+            if (recordIdSourcePdf.equals("")) {
+                recordIdSourcePdf = appService.getOriginProcessId(wfAssignment.getProcessId());
             }
-            if(recordId_OutputPDF.equals("")) {
-                recordId_OutputPDF = appService.getOriginProcessId(wfAssignment.getProcessId());
+            if (recordIdSourceImg.equals("")) {
+                recordIdSourceImg = appService.getOriginProcessId(wfAssignment.getProcessId());
+            }
+            if (recordIdOutputPdf.equals("")) {
+                recordIdOutputPdf = appService.getOriginProcessId(wfAssignment.getProcessId());
             }
         }
 
@@ -98,50 +101,88 @@ public class PDFFileAddImageTool extends DefaultApplicationPlugin{
         File srcPDF = null;
         File srcImg = null;
 
-        if (formDefId_SourcePDF != null && formDefId_SourceIMG !=null && formDefId_OutputPDF !=null) {
+        if (formDefIdSourcePdf != null && formDefIdSourceImg != null && formDefIdOutputPdf != null) {
             try {
                 FormData formData = new FormData();
 
                 // get pdf
-                formData.setPrimaryKeyValue(recordId_SourcePDF);
-                loadForm = appService.viewDataForm(appDef.getId(), appDef.getVersion().toString(), formDefId_SourcePDF, null, null, null, formData, null, null);
-                Element el = FormUtil.findElement(fieldId_SourcePDF, loadForm, formData);
-                srcPDF = FileUtil.getFile(FormUtil.getElementPropertyValue(el, formData), loadForm, recordId_SourcePDF);
-                FileInputStream fileIS = new FileInputStream(srcPDF);
-                byte[] srcPDFFileContent = fileIS.readAllBytes();
-                fileIS.close();
+                formData.setPrimaryKeyValue(recordIdSourcePdf);
+                loadForm = appService.viewDataForm(appDef.getId(), appDef.getVersion().toString(), formDefIdSourcePdf, null, null, null, formData, null, null);
+                Element el = FormUtil.findElement(fieldIdSourcePdf, loadForm, formData);
+                srcPDF = FileUtil.getFile(FormUtil.getElementPropertyValue(el, formData), loadForm, recordIdSourcePdf);
 
-                // get image
-                formData.setPrimaryKeyValue(recordId_SourceIMG);
-                loadForm = appService.viewDataForm(appDef.getId(), appDef.getVersion().toString(), formDefId_SourceIMG, null, null, null, formData, null, null);
-                Element elImg = FormUtil.findElement(fieldId_SourceIMG, loadForm, formData);
-                srcImg = FileUtil.getFile(FormUtil.getElementPropertyValue(elImg, formData), loadForm, recordId_SourceIMG);
-                FileInputStream fileISImg = new FileInputStream(srcImg);
-                byte[] srcImgFileContent = fileISImg.readAllBytes();
-                fileISImg.close();
-        
-                // put image in pdf
-                byte[] outputPDFFileContent = addImagetoPDF(srcPDFFileContent, srcImgFileContent);
-          
-                // output in new pdf
-                String fileNameWithOutExt = FilenameUtils.removeExtension(srcPDF.getName());
-                String fileName = fileNameWithOutExt + "_withImage.pdf";
-                String tableName = appService.getFormTableName(appDef, formDefId_OutputPDF);
-                String path = FileUtil.getUploadPath(tableName, recordId_OutputPDF);
-                final File file = new File(path + fileName);
-                ByteArrayOutputStream baos = new ByteArrayOutputStream();
-                FileUtils.writeByteArrayToFile(file, outputPDFFileContent);
-        
-                FormRowSet set = new FormRowSet();
-                FormRow r1 = new FormRow();
-                r1.put(fieldId_OutputPDF, fileName);
-                set.add(r1);
-                appService.storeFormData(appDef.getAppId(), appDef.getVersion().toString(), formDefId_OutputPDF, set, recordId_OutputPDF);
+                String filePaths = srcPDF.getPath();
+                FormRowSet frs = new FormRowSet();
+
+                List<String> fileList = getFilesList(filePaths);
+                StringBuilder resultBuilder = new StringBuilder();
+
+                for (String filePath : fileList) {
+                    File uploadedFile = new File(filePath.trim());
+                    FileInputStream fileIS = new FileInputStream(uploadedFile);
+                    byte[] srcPDFFileContent = fileIS.readAllBytes();
+                    fileIS.close();
+
+                    // get image
+                    formData.setPrimaryKeyValue(recordIdSourceImg);
+                    loadForm = appService.viewDataForm(appDef.getId(), appDef.getVersion().toString(), formDefIdSourceImg, null, null, null, formData, null, null);
+                    Element elImg = FormUtil.findElement(fieldIdSourceImg, loadForm, formData);
+                    srcImg = FileUtil.getFile(FormUtil.getElementPropertyValue(elImg, formData), loadForm, recordIdSourceImg);
+                    FileInputStream fileISImg = new FileInputStream(srcImg);
+                    byte[] srcImgFileContent = fileISImg.readAllBytes();
+                    fileISImg.close();
+
+                    // put image in pdf
+                    byte[] outputPDFFileContent = addImagetoPDF(srcPDFFileContent, srcImgFileContent);
+
+                    // output in new pdf
+                    String fileNameWithOutExt = FilenameUtils.removeExtension(uploadedFile.getName());
+                    String fileName = fileNameWithOutExt + "_withImage.pdf";
+                    String tableName = appService.getFormTableName(appDef, formDefIdOutputPdf);
+                    String path = FileUtil.getUploadPath(tableName, recordIdOutputPdf);
+                    final File file = new File(path + fileName);
+                    ByteArrayOutputStream baos = new ByteArrayOutputStream();
+                    FileUtils.writeByteArrayToFile(file, outputPDFFileContent);
+
+                    if (resultBuilder.length() > 0) {
+                        resultBuilder.append(";");
+                    }
+                    resultBuilder.append(fileName);
+                }
+
+                if (fileList.size() > 0) {
+                    FormRow row = new FormRow();
+                    row.put(fieldIdOutputPdf, resultBuilder.toString());
+                    frs.add(row);
+                    appService.storeFormData(appDef.getAppId(), appDef.getVersion().toString(), formDefIdOutputPdf, frs, recordIdOutputPdf);
+                }
+
             } catch (Exception ex) {
                 LogUtil.error(getClassName(), ex, ex.getMessage());
             }
         }
         return null;
+    }
+
+    public List<String> getFilesList(String filePaths) {
+        String[] fileArray = filePaths.split(";");
+        List<String> fileList = new ArrayList<>();
+
+        String directoryPath = "";
+        for (String filePath : fileArray) {
+            String fullPath = "";
+            String trimmedPath = filePath.trim();
+            int lastSeparatorIndex = trimmedPath.lastIndexOf(File.separator);
+            if (lastSeparatorIndex != -1) {
+                directoryPath = trimmedPath.substring(0, lastSeparatorIndex);
+                String fileName = trimmedPath.substring(lastSeparatorIndex + 1);
+                fullPath = directoryPath + File.separator + fileName;
+            } else {
+                fullPath = directoryPath + File.separator + trimmedPath;
+            }
+            fileList.add(fullPath);
+        }
+        return fileList;
     }
 
     public byte[] addImagetoPDF(byte[] srcPDF, byte[] srcImg) throws Exception {
@@ -166,7 +207,7 @@ public class PDFFileAddImageTool extends DefaultApplicationPlugin{
 
                 if (img != null) {
                     // bottom left
-                    img.setAbsolutePosition(left, top); 
+                    img.setAbsolutePosition(left, top);
 
                     over = stamper.getOverContent(i);
                     over.addImage(img);
@@ -175,12 +216,10 @@ public class PDFFileAddImageTool extends DefaultApplicationPlugin{
                 }
             }
             stamper.close();
-       
+
         } catch (Exception ex) {
             LogUtil.error(getClassName(), ex, ex.getMessage());
         }
         return os.toByteArray();
     }
 }
-
-
