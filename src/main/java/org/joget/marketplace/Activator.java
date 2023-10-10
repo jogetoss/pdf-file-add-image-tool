@@ -14,7 +14,7 @@ public class Activator implements BundleActivator {
         registrationList = new ArrayList<ServiceRegistration>();
 
         //Register plugin here
-        registrationList.add(context.registerService(PDFFileAddImageTool.class.getName(), new PDFFileAddImageTool(), null));
+        registrationList.add(context.registerService(FileAddImageTool.class.getName(), new FileAddImageTool(), null));
     }
 
     public void stop(BundleContext context) {

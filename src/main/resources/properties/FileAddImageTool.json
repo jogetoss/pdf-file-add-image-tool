@@ -1,21 +1,21 @@
 [
     {
-        "title": "@@org.joget.marketplace.PDFFileAddImageTool.config@@",
+        "title": "@@org.joget.marketplace.FileAddImageTool.config@@",
         "properties": [
             {
-                "label": "@@org.joget.marketplace.PDFFileAddImageTool.sourcePdfImage@@",
+                "label": "@@org.joget.marketplace.FileAddImageTool.sourceFile@@",
                 "type": "header"
             },
             {
                 "name": "formDefIdSourceFile",
-                "label": "@@org.joget.marketplace.PDFFileAddImageTool.formDefId@@",
+                "label": "@@org.joget.marketplace.FileAddImageTool.formDefId@@",
                 "type": "selectbox",
                 "required": "True",
                 "options_ajax": "[CONTEXT_PATH]/web/json/console/app[APP_PATH]/forms/options"
             },
             {
                 "name" : "sourceFileFieldId", 
-                "label" : "@@org.joget.marketplace.PDFFileAddImageTool.fieldId@@",
+                "label" : "@@org.joget.marketplace.FileAddImageTool.fieldId@@",
                 "type" : "selectbox",
                 "options_ajax_on_change" : "formDefId:formDefIdSourceFile",
                 "options_ajax" : "[CONTEXT_PATH]/web/json/console/app[APP_PATH]/form/columns/options",
@@ -23,23 +23,23 @@
             },
             {
                 "name" : "sourceFileRecordId",
-                "label" : "@@org.joget.marketplace.PDFFileAddImageTool.recordId@@",
+                "label" : "@@org.joget.marketplace.FileAddImageTool.recordId@@",
                 "type" : "textfield"
             },
             {
-                "label": "@@org.joget.marketplace.PDFFileAddImageTool.sourceImage@@",
+                "label": "@@org.joget.marketplace.FileAddImageTool.sourceImage@@",
                 "type": "header"
             },
             {
                 "name": "sourceImgFormDefId",
-                "label": "@@org.joget.marketplace.PDFFileAddImageTool.formDefId@@",
+                "label": "@@org.joget.marketplace.FileAddImageTool.formDefId@@",
                 "type": "selectbox",
                 "required": "True",
                 "options_ajax": "[CONTEXT_PATH]/web/json/console/app[APP_PATH]/forms/options"
             },
             {
                 "name" : "sourceImgFieldId",
-                "label" : "@@org.joget.marketplace.PDFFileAddImageTool.fieldId@@",
+                "label" : "@@org.joget.marketplace.FileAddImageTool.fieldId@@",
                 "type" : "selectbox",
                 "options_ajax_on_change" : "formDefId:sourceImgFormDefId",
                 "options_ajax" : "[CONTEXT_PATH]/web/json/console/app[APP_PATH]/form/columns/options",
@@ -47,23 +47,23 @@
             },
             {
                 "name" : "sourceImgRecordId",
-                "label" : "@@org.joget.marketplace.PDFFileAddImageTool.recordId@@",
+                "label" : "@@org.joget.marketplace.FileAddImageTool.recordId@@",
                 "type" : "textfield"
             },
             {
-                "label": "@@org.joget.marketplace.PDFFileAddImageTool.outputPDF@@",
+                "label": "@@org.joget.marketplace.FileAddImageTool.outputFile@@",
                 "type": "header"
             },
             {
                 "name": "formDefIdOutputFile",
-                "label": "@@org.joget.marketplace.PDFFileAddImageTool.formDefId@@",
+                "label": "@@org.joget.marketplace.FileAddImageTool.formDefId@@",
                 "type": "selectbox",
                 "required": "True",
                 "options_ajax": "[CONTEXT_PATH]/web/json/console/app[APP_PATH]/forms/options"
             },
             {
                 "name" : "outputFileFieldId",
-                "label" : "@@org.joget.marketplace.PDFFileAddImageTool.fieldId@@",
+                "label" : "@@org.joget.marketplace.FileAddImageTool.fieldId@@",
                 "type" : "selectbox",
                 "options_ajax_on_change" : "formDefId:formDefIdOutputFile",
                 "options_ajax" : "[CONTEXT_PATH]/web/json/console/app[APP_PATH]/form/columns/options",
@@ -71,7 +71,7 @@
             },
             {
                 "name" : "outputFileRecordId",
-                "label" : "@@org.joget.marketplace.PDFFileAddImageTool.recordId@@",
+                "label" : "@@org.joget.marketplace.FileAddImageTool.recordId@@",
                 "type" : "textfield"
             }
         ]

@@ -35,13 +35,13 @@ import java.util.ArrayList;
 import java.util.List;
 import javax.imageio.ImageIO;
 
-public class PDFFileAddImageTool extends DefaultApplicationPlugin {
+public class FileAddImageTool extends DefaultApplicationPlugin {
 
-    private final static String MESSAGE_PATH = "messages/PDFFileAddImageTool";
+    private final static String MESSAGE_PATH = "messages/FileAddImageTool";
 
     @Override
     public String getName() {
-        return AppPluginUtil.getMessage("org.joget.marketplace.PDFFileAddImageTool.pluginLabel", getClassName(), MESSAGE_PATH);
+        return AppPluginUtil.getMessage("org.joget.marketplace.FileAddImageTool.pluginLabel", getClassName(), MESSAGE_PATH);
     }
 
     @Override
@@ -57,18 +57,18 @@ public class PDFFileAddImageTool extends DefaultApplicationPlugin {
     @Override
     public String getLabel() {
         //support i18n
-        return AppPluginUtil.getMessage("org.joget.marketplace.PDFFileAddImageTool.pluginLabel", getClassName(), MESSAGE_PATH);
+        return AppPluginUtil.getMessage("org.joget.marketplace.FileAddImageTool.pluginLabel", getClassName(), MESSAGE_PATH);
     }
 
     @Override
     public String getDescription() {
         //support i18n
-        return AppPluginUtil.getMessage("org.joget.marketplace.PDFFileAddImageTool.pluginDesc", getClassName(), MESSAGE_PATH);
+        return AppPluginUtil.getMessage("org.joget.marketplace.FileAddImageTool.pluginDesc", getClassName(), MESSAGE_PATH);
     }
 
     @Override
     public String getPropertyOptions() {
-        return AppUtil.readPluginResource(getClassName(), "/properties/PDFFileAddImageTool.json", null, true, MESSAGE_PATH);
+        return AppUtil.readPluginResource(getClassName(), "/properties/FileAddImageTool.json", null, true, MESSAGE_PATH);
     }
 
     @Override
