@@ -1,6 +1,6 @@
 # Description
 
-This PDF File Add Image Tool plugin is used to add uploaded image on every page of uploaded PDF File.
+The File Add Image Tool plugin is used to add uploaded images on every page of an uploaded PDF File or image file. Supports multiple file uploads.
 
 To setup and configure this plugin, please see the [documentation](https://dev.joget.org/community/display/marketplace/PDF+File+Add+Image+Tool+Plugin).
 
