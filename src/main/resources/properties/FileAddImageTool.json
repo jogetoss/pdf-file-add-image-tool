@@ -24,31 +24,214 @@
             {
                 "name" : "sourceFileRecordId",
                 "label" : "@@org.joget.marketplace.FileAddImageTool.recordId@@",
-                "type" : "textfield"
+                "type" : "textfield",
+                "description" : "@@org.joget.marketplace.FileAddImageTool.recordId.desc@@"
             },
             {
-                "label": "@@org.joget.marketplace.FileAddImageTool.sourceImage@@",
+                "label": "@@org.joget.marketplace.FileAddImageTool.data@@",
                 "type": "header"
             },
             {
+                "name": "addImage",
+                "label": "@@org.joget.marketplace.FileAddImageTool.addImage@@",
+                "type": "checkbox",
+                "value" : "false",
+                "options": [
+                    {
+                        "value": "true",
+                        "label": ""
+                    }
+                ]
+            },
+            {
                 "name": "sourceImgFormDefId",
-                "label": "@@org.joget.marketplace.FileAddImageTool.formDefId@@",
+                "label": "@@org.joget.marketplace.FileAddImageTool.sourceImgFormDefId@@",
                 "type": "selectbox",
-                "required": "True",
-                "options_ajax": "[CONTEXT_PATH]/web/json/console/app[APP_PATH]/forms/options"
+                "options_ajax": "[CONTEXT_PATH]/web/json/console/app[APP_PATH]/forms/options",
+                "control_field": "addImage",
+                "control_value": "true"
             },
             {
                 "name" : "sourceImgFieldId",
-                "label" : "@@org.joget.marketplace.FileAddImageTool.fieldId@@",
+                "label" : "@@org.joget.marketplace.FileAddImageTool.sourceImgFieldId@@",
                 "type" : "selectbox",
                 "options_ajax_on_change" : "formDefId:sourceImgFormDefId",
                 "options_ajax" : "[CONTEXT_PATH]/web/json/console/app[APP_PATH]/form/columns/options",
-                "required" : "True"
+                "control_field": "addImage",
+                "control_value": "true"
             },
             {
                 "name" : "sourceImgRecordId",
-                "label" : "@@org.joget.marketplace.FileAddImageTool.recordId@@",
-                "type" : "textfield"
+                "label" : "@@org.joget.marketplace.FileAddImageTool.sourceImgRecordId@@",
+                "type" : "textfield",
+                "control_field": "addImage",
+                "control_value": "true",
+                "description" : "@@org.joget.marketplace.FileAddImageTool.recordId.desc@@"
+            },
+            {
+                "name" : "sourceImgPadding",
+                "label" : "@@org.joget.marketplace.FileAddImageTool.padding@@",
+                "type" : "number",
+                "control_field": "addImage",
+                "control_value": "true"
+            },
+            {
+                "name":"sourceImgPosition",
+                "label":"@@org.joget.marketplace.FileAddImageTool.sourceImgPosition@@",
+                "type":"selectbox",
+                "control_field": "addImage",
+                "control_value": "true",
+                "options":[
+                  {
+                    "value":"",
+                    "label":""
+                  },
+                  {
+                     "value":"staticPosition",
+                     "label":"@@org.joget.marketplace.FileAddImageTool.staticPosition@@"
+                  },
+                  {
+                     "value":"manualPosition",
+                     "label": "@@org.joget.marketplace.FileAddImageTool.manualPosition@@"
+                  }
+               ]
+            },
+            {
+                "name":"positionDirectionImg",
+                "label":"@@org.joget.marketplace.FileAddImageTool.position@@",
+                "type":"selectbox",
+                "control_field": "sourceImgPosition",
+                "control_value": "staticPosition",
+                "options":[
+                  {
+                     "value":"topLeft",
+                     "label":"@@org.joget.marketplace.FileAddImageTool.topLeft@@"
+                  },
+                  {
+                     "value":"topRight",
+                     "label": "@@org.joget.marketplace.FileAddImageTool.topRight@@"
+                  },
+                  {
+                    "value":"bottomLeft",
+                    "label":"@@org.joget.marketplace.FileAddImageTool.bottomLeft@@"
+                 },
+                 {
+                    "value":"bottomRight",
+                    "label": "@@org.joget.marketplace.FileAddImageTool.bottomRight@@"
+                 }
+               ]
+            },
+            {
+                "name" : "sourceImgPositionx",
+                "label" : "@@org.joget.marketplace.FileAddImageTool.sourceImgPositionx@@",
+                "type" : "number",
+                "control_field": "sourceImgPosition",
+                "control_value": "manualPosition",
+                "value" : "@@org.joget.marketplace.FileAddImageTool.sourceImgPositionx.value@@"
+            },
+            {
+                "name" : "sourceImgPositiony",
+                "label" : "@@org.joget.marketplace.FileAddImageTool.sourceImgPositiony@@",
+                "type" : "number",
+                "control_field": "sourceImgPosition",
+                "control_value": "manualPosition",
+                "value" : "@@org.joget.marketplace.FileAddImageTool.sourceImgPositiony.value@@"
+            },
+            {
+                "name": "addText",
+                "label": "@@org.joget.marketplace.FileAddImageTool.addText@@",
+                "type": "checkbox",
+                "value" : "false",
+                "options": [
+                    {
+                        "value": "true",
+                        "label": ""
+                    }
+                ]
+            },
+            {
+                "name" : "text",
+                "label" : "@@org.joget.marketplace.FileAddImageTool.text@@",
+                "type" : "textfield",
+                "control_field": "addText",
+                "control_value": "true"
+            },
+            {
+                "name" : "textFontSize",
+                "label" : "@@org.joget.marketplace.FileAddImageTool.textFontSize@@",
+                "type" : "number",
+                "control_field": "addText",
+                "control_value": "true",
+                "value" : "@@org.joget.marketplace.FileAddImageTool.textFontSize.value@@"
+            },
+            {
+                "name" : "textPadding",
+                "label" : "@@org.joget.marketplace.FileAddImageTool.padding@@",
+                "type" : "number",
+                "control_field": "addText",
+                "control_value": "true"
+            },
+            {
+                "name":"textPosition",
+                "label":"@@org.joget.marketplace.FileAddImageTool.textPosition@@",
+                "type":"selectbox",
+                "control_field": "addText",
+                "control_value": "true",
+                "options":[
+                  {
+                    "value":"",
+                    "label":""
+                  },
+                  {
+                     "value":"staticPosition",
+                     "label":"@@org.joget.marketplace.FileAddImageTool.staticPosition@@"
+                  },
+                  {
+                     "value":"manualPosition",
+                     "label": "@@org.joget.marketplace.FileAddImageTool.manualPosition@@"
+                  }
+               ]
+            },
+            {
+                "name":"positionDirectionText",
+                "label":"@@org.joget.marketplace.FileAddImageTool.position@@",
+                "type":"selectbox",
+                "control_field": "textPosition",
+                "control_value": "staticPosition",
+                "options":[
+                  {
+                     "value":"topLeft",
+                     "label":"@@org.joget.marketplace.FileAddImageTool.topLeft@@"
+                  },
+                  {
+                     "value":"topRight",
+                     "label": "@@org.joget.marketplace.FileAddImageTool.topRight@@"
+                  },
+                  {
+                    "value":"bottomLeft",
+                    "label":"@@org.joget.marketplace.FileAddImageTool.bottomLeft@@"
+                 },
+                 {
+                    "value":"bottomRight",
+                    "label": "@@org.joget.marketplace.FileAddImageTool.bottomRight@@"
+                 }
+               ]
+            },
+            {
+                "name" : "textPositionx",
+                "label" : "@@org.joget.marketplace.FileAddImageTool.textPositionx@@",
+                "type" : "number",
+                "control_field": "textPosition",
+                "control_value": "manualPosition",
+                "value" : "@@org.joget.marketplace.FileAddImageTool.textPositionx.value@@"
+            },
+            {
+                "name" : "textPositiony",
+                "label" : "@@org.joget.marketplace.FileAddImageTool.textPositiony@@",
+                "type" : "number",
+                "control_field": "textPosition",
+                "control_value": "manualPosition",
+                "value" : "@@org.joget.marketplace.FileAddImageTool.textPositiony.value@@"
             },
             {
                 "label": "@@org.joget.marketplace.FileAddImageTool.outputFile@@",
@@ -72,7 +255,8 @@
             {
                 "name" : "outputFileRecordId",
                 "label" : "@@org.joget.marketplace.FileAddImageTool.recordId@@",
-                "type" : "textfield"
+                "type" : "textfield",
+                "description" : "@@org.joget.marketplace.FileAddImageTool.recordId.desc@@"
             }
         ]
     }
