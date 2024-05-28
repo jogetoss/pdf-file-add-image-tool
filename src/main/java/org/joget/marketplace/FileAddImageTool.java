@@ -52,7 +52,7 @@ public class FileAddImageTool extends DefaultApplicationPlugin {
 
     @Override
     public String getVersion() {
-        return "7.0.3";
+        return "7.0.4";
     }
 
     @Override
@@ -100,6 +100,7 @@ public class FileAddImageTool extends DefaultApplicationPlugin {
         String sourceImgFieldId = (String) map.get("sourceImgFieldId");
         String sourceImgRecordId = (String) map.get("sourceImgRecordId");
         String textFontSize = (String) map.get("textFontSize");
+        String textColor = (String) map.get("textColor");
         String text = (String) map.get("text");
 
         // positions
@@ -187,11 +188,11 @@ public class FileAddImageTool extends DefaultApplicationPlugin {
                             byte[] textOutputPDFFileContent;
                             // image + text
                             if (os.size() > 0) {
-                                textOutputPDFFileContent = addTextToPDF(os.toByteArray(), text, textFontSize, fileExt, textPosition, positionDirectionText, textPositionx, textPositiony, textPadding);
+                                textOutputPDFFileContent = addTextToPDF(os.toByteArray(), text, textFontSize, textColor, fileExt, textPosition, positionDirectionText, textPositionx, textPositiony, textPadding);
                                 dataType = "imageText";
                             // text
                             } else {
-                                textOutputPDFFileContent = addTextToPDF(srcPDFFileContent, text, textFontSize, fileExt, textPosition, positionDirectionText, textPositionx, textPositiony, textPadding);
+                                textOutputPDFFileContent = addTextToPDF(srcPDFFileContent, text, textFontSize, textColor, fileExt, textPosition, positionDirectionText, textPositionx, textPositiony, textPadding);
                                 dataType = "text";
                             }
                             os.write(textOutputPDFFileContent);
@@ -216,7 +217,7 @@ public class FileAddImageTool extends DefaultApplicationPlugin {
                             if (combinedImageInImage != null) {
                                 if (addText != null && addText.equals("true")) {
                                     // image + text
-                                    BufferedImage combinedImage = addTextToImage(combinedImageInImage, text, textFontSize, fileExt, textPosition, positionDirectionText, textPositionx, textPositiony, textPadding);
+                                    BufferedImage combinedImage = addTextToImage(combinedImageInImage, text, textFontSize, textColor, fileExt, textPosition, positionDirectionText, textPositionx, textPositiony, textPadding);
                                     ImageIO.write(combinedImage, FilenameUtils.getExtension(uploadedFile.getName()), os);
                                     dataType = "imageText";
                                 } else {
@@ -227,7 +228,7 @@ public class FileAddImageTool extends DefaultApplicationPlugin {
                              }
                         } else if (addText != null && addText.equals("true")) {
                             // text
-                            BufferedImage combinedImage = addTextToImage(sourceImage, text, textFontSize, fileExt, textPosition, positionDirectionText, textPositionx, textPositiony, textPadding);
+                            BufferedImage combinedImage = addTextToImage(sourceImage, text, textFontSize, textColor, fileExt, textPosition, positionDirectionText, textPositionx, textPositiony, textPadding);
                             ImageIO.write(combinedImage, FilenameUtils.getExtension(uploadedFile.getName()), os);
                             dataType = "text";
                         } 
@@ -324,7 +325,7 @@ public class FileAddImageTool extends DefaultApplicationPlugin {
         return combinedImage;
     }
 
-    public BufferedImage addTextToImage(BufferedImage sourceImage, String text, String fontSizeStr, String fileExt, String position, String positionDirection, String srcX, String srcY, String padding) {
+    public BufferedImage addTextToImage(BufferedImage sourceImage, String text, String fontSizeStr, String textColor, String fileExt, String position, String positionDirection, String srcX, String srcY, String padding) {
         Graphics2D g2d = sourceImage.createGraphics();
 
         int fontSize = Integer.parseInt(fontSizeStr);
@@ -342,7 +343,9 @@ public class FileAddImageTool extends DefaultApplicationPlugin {
         int x = Integer.parseInt(partsImg[0].trim());
         int y = Integer.parseInt(partsImg[1].trim()) + 10;
 
-        g2d.setColor(Color.BLACK);
+
+        Color color = Color.decode(textColor);                     
+        g2d.setColor(color);
         g2d.setFont(font);
 
         g2d.drawString(text, x, y);
@@ -380,7 +383,7 @@ public class FileAddImageTool extends DefaultApplicationPlugin {
         return os.toByteArray();
     }
 
-    public byte[] addTextToPDF(byte[] srcPDF, String text, String fontSizeStr, String fileExt, String position, String positionDirection, String srcX, String srcY, String padding) throws Exception {
+    public byte[] addTextToPDF(byte[] srcPDF, String text, String fontSizeStr, String textColor, String fileExt, String position, String positionDirection, String srcX, String srcY, String padding) throws Exception {
         ByteArrayOutputStream os = new ByteArrayOutputStream();
     
         PdfReader reader = new PdfReader(srcPDF);
@@ -390,7 +393,7 @@ public class FileAddImageTool extends DefaultApplicationPlugin {
     
         int fontSize = Integer.parseInt(fontSizeStr);
         Font font = new Font("Arial", Font.BOLD, fontSize);
-
+        Color color = Color.decode(textColor);  
         // get width and height of text
         String widthHeightText = getStringWidth(text, font);
         String[] partsWidthHeightText= widthHeightText.split(",");
@@ -405,9 +408,10 @@ public class FileAddImageTool extends DefaultApplicationPlugin {
     
         for (int i = 1; i <= totalPages; i++) {
             PdfContentByte over = stamper.getOverContent(i);
-    
+               
             over.beginText();
             over.setFontAndSize(BaseFont.createFont(BaseFont.HELVETICA, BaseFont.WINANSI, BaseFont.EMBEDDED), fontSize);
+            over.setColorFill(color);
             over.setTextMatrix(x, y);
             over.showText(text);
             over.endText();

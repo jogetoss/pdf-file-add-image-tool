@@ -165,6 +165,13 @@
                 "value" : "@@org.joget.marketplace.FileAddImageTool.textFontSize.value@@"
             },
             {
+                "name" : "textColor",
+                "label" : "@@org.joget.marketplace.FileAddImageTool.textColor@@",
+                "type" : "color",
+                "control_field": "addText",
+                "control_value": "true"
+            },
+            {
                 "name" : "textPadding",
                 "label" : "@@org.joget.marketplace.FileAddImageTool.padding@@",
                 "type" : "number",
