@@ -49,7 +49,8 @@
                 "type": "selectbox",
                 "options_ajax": "[CONTEXT_PATH]/web/json/console/app[APP_PATH]/forms/options",
                 "control_field": "addImage",
-                "control_value": "true"
+                "control_value": "true",
+                "required" : "True"
             },
             {
                 "name" : "sourceImgFieldId",
@@ -58,7 +59,8 @@
                 "options_ajax_on_change" : "formDefId:sourceImgFormDefId",
                 "options_ajax" : "[CONTEXT_PATH]/web/json/console/app[APP_PATH]/form/columns/options",
                 "control_field": "addImage",
-                "control_value": "true"
+                "control_value": "true",
+                "required" : "True"
             },
             {
                 "name" : "sourceImgRecordId",
@@ -81,6 +83,7 @@
                 "type":"selectbox",
                 "control_field": "addImage",
                 "control_value": "true",
+                "required" : "True",
                 "options":[
                   {
                     "value":"",
@@ -102,6 +105,7 @@
                 "type":"selectbox",
                 "control_field": "sourceImgPosition",
                 "control_value": "staticPosition",
+                "required" : "True",
                 "options":[
                   {
                      "value":"topLeft",
@@ -127,6 +131,7 @@
                 "type" : "number",
                 "control_field": "sourceImgPosition",
                 "control_value": "manualPosition",
+                "required" : "True",
                 "value" : "@@org.joget.marketplace.FileAddImageTool.sourceImgPositionx.value@@"
             },
             {
@@ -135,6 +140,7 @@
                 "type" : "number",
                 "control_field": "sourceImgPosition",
                 "control_value": "manualPosition",
+                "required" : "True",
                 "value" : "@@org.joget.marketplace.FileAddImageTool.sourceImgPositiony.value@@"
             },
             {
@@ -154,7 +160,8 @@
                 "label" : "@@org.joget.marketplace.FileAddImageTool.text@@",
                 "type" : "textfield",
                 "control_field": "addText",
-                "control_value": "true"
+                "control_value": "true",
+                "required" : "True"
             },
             {
                 "name" : "textFontSize",
@@ -162,14 +169,16 @@
                 "type" : "number",
                 "control_field": "addText",
                 "control_value": "true",
-                "value" : "@@org.joget.marketplace.FileAddImageTool.textFontSize.value@@"
+                "value" : "@@org.joget.marketplace.FileAddImageTool.textFontSize.value@@",
+                "required" : "True"
             },
             {
                 "name" : "textColor",
                 "label" : "@@org.joget.marketplace.FileAddImageTool.textColor@@",
                 "type" : "color",
                 "control_field": "addText",
-                "control_value": "true"
+                "control_value": "true",
+                "required" : "True"
             },
             {
                 "name" : "textPadding",
@@ -184,6 +193,7 @@
                 "type":"selectbox",
                 "control_field": "addText",
                 "control_value": "true",
+                "required" : "True",
                 "options":[
                   {
                     "value":"",
@@ -205,6 +215,7 @@
                 "type":"selectbox",
                 "control_field": "textPosition",
                 "control_value": "staticPosition",
+                "required" : "True",
                 "options":[
                   {
                      "value":"topLeft",
@@ -230,6 +241,7 @@
                 "type" : "number",
                 "control_field": "textPosition",
                 "control_value": "manualPosition",
+                "required" : "True",
                 "value" : "@@org.joget.marketplace.FileAddImageTool.textPositionx.value@@"
             },
             {
@@ -238,6 +250,7 @@
                 "type" : "number",
                 "control_field": "textPosition",
                 "control_value": "manualPosition",
+                "required" : "True",
                 "value" : "@@org.joget.marketplace.FileAddImageTool.textPositiony.value@@"
             },
             {

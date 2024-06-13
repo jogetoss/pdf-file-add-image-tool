@@ -52,7 +52,7 @@ public class FileAddImageTool extends DefaultApplicationPlugin {
 
     @Override
     public String getVersion() {
-        return "7.0.4";
+        return "7.0.5";
     }
 
     @Override
